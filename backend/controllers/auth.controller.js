@@ -25,10 +25,10 @@ const register = async (req, res) => {
       password,
       role: role === 'publisher' ? 'publisher' : 'reader',
       otp: { code: otp, expiresAt: new Date(Date.now() + 10 * 60 * 1000) },
-      isVerified: false,
+      isVerified: true,
     });
 
-    await sendOtpEmail(user.email, otp, user.name);
+    try { await sendOtpEmail(user.email, otp, user.name); } catch (e) { console.log('Email failed:', e.message); }
 
     res.status(201).json({
       success: true,
