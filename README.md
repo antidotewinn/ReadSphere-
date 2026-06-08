@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # PageTurn — eBook Publishing Platform
 
 A full-stack MERN eBook platform where publishers upload and monetize books, and readers purchase and read them securely in-app (no PDF downloads).
@@ -214,3 +215,7 @@ PDFs are stored as `raw` resource type. Signed URLs expire in 1 hour — readers
 
 ## License
 MIT
+=======
+# ReadSphere-
+AI-powered eBook platform built with MERN stack + Groq AI. Features include PDF reading, AI summary, chat with PDF, book upload with preview, OTP email verification, and publisher dashboard.
+>>>>>>> 8fcebb40845d5e72a5d26210514eedfc5c59ef49
