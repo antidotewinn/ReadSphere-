@@ -52,6 +52,11 @@ app.use('/api/reviews', require('./routes/review.routes'));
 app.use('/api/ai', require('./routes/ai.routes'));
 
 // Health check
+app.get('/api/debug-users', async (req, res) => {
+  const User = require('./models/User');
+  const users = await User.find();
+  res.json({ count: users.length, emails: users.map(u => u.email) });
+});
 app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'eBook Platform API is running', timestamp: new Date() });
 });
