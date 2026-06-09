@@ -96,7 +96,7 @@ const login = async (req, res) => {
       const otp = generateOTP();
       user.otp = { code: otp, expiresAt: new Date(Date.now() + 10 * 60 * 1000) };
       await user.save({ validateBeforeSave: false });
-      await sendOtpEmail(user.email, otp, user.name);
+      try { await sendOtpEmail(user.email, otp, user.name); } catch (e) { console.log('Email failed:', e.message); }
       return res.status(403).json({
         success: false,
         message: 'Email not verified. A new OTP has been sent.',
@@ -134,7 +134,7 @@ const resendOtp = async (req, res) => {
     const otp = generateOTP();
     user.otp = { code: otp, expiresAt: new Date(Date.now() + 10 * 60 * 1000) };
     await user.save({ validateBeforeSave: false });
-    await sendOtpEmail(user.email, otp, user.name);
+    try { await sendOtpEmail(user.email, otp, user.name); } catch (e) { console.log('Email failed:', e.message); }
 
     res.json({ success: true, message: 'OTP resent successfully.' });
   } catch (err) {
