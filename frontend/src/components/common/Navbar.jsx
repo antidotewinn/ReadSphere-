@@ -53,7 +53,7 @@ export default function Navbar() {
                 {label}
               </Link>
             ))}
-            {user?.role === 'publisher' && (
+            {user && (
               <>
                 <Link to="/publisher/dashboard"
                   className="px-3 py-2 rounded-lg text-sm font-semibold transition-all"
@@ -106,12 +106,8 @@ export default function Navbar() {
                         style={{ background: 'rgba(249,115,22,0.1)', color: '#f97316' }}>{user.role}</span>
                     </div>
                     <div className="py-1">
-                      {user.role === 'publisher' && (
-                        <>
-                          <DropdownItem icon={LayoutDashboard} label="Dashboard" to="/publisher/dashboard" close={() => setDropdownOpen(false)} />
-                          <DropdownItem icon={Upload} label="Upload Book" to="/publisher/upload" close={() => setDropdownOpen(false)} />
-                        </>
-                      )}
+                      <DropdownItem icon={LayoutDashboard} label="Dashboard" to="/publisher/dashboard" close={() => setDropdownOpen(false)} />
+<DropdownItem icon={Upload} label="Upload Book" to="/publisher/upload" close={() => setDropdownOpen(false)} />
                       <DropdownItem icon={Library} label="My Library" to="/library" close={() => setDropdownOpen(false)} />
                       <button onClick={handleLogout}
                         className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors"
@@ -168,7 +164,7 @@ export default function Navbar() {
               </Link>
             )}
 
-            {user?.role === 'publisher' && (
+            {user && (
               <>
                 <Link to="/publisher/dashboard" onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all"

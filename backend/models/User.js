@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema({
     enum: ['reader', 'publisher', 'admin'],
     default: 'reader',
   },
+  isPublisher: {
+    type: Boolean,
+    default: false,
+  },
   avatar: {
     type: String,
     default: '',

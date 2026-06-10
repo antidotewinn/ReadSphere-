@@ -32,7 +32,7 @@ const upload = multer({ storage }).fields([
   { name: 'pdfFile', maxCount: 1 },
 ]);
 
-router.use(protect, restrictTo('publisher', 'admin'));
+router.use(protect);
 router.get('/dashboard', getDashboard);
 router.get('/books', getMyBooks);
 router.post('/books', upload, uploadBook);
