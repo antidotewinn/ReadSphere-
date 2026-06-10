@@ -95,7 +95,20 @@ export default function LoginPage() {
               {isLoading ? 'Signing in...' : 'Sign in'}
             </button>
           </form>
+{/* Divider */}
+<div className="flex items-center gap-3 my-6">
+  <div className="flex-1 h-px" style={{ background: '#222' }} />
+  <span className="text-xs" style={{ color: '#555' }}>or</span>
+  <div className="flex-1 h-px" style={{ background: '#222' }} />
+</div>
 
+{/* Google Login Button */}
+<a href={`${import.meta.env.VITE_API_URL}/api/auth/google`}
+  className="w-full flex items-center justify-center gap-3 py-3 rounded-xl text-sm font-semibold transition-all hover:scale-105"
+  style={{ background: '#111', border: '1px solid #333', color: '#fff' }}>
+  <img src="https://www.google.com/favicon.ico" alt="Google" className="w-4 h-4" />
+  Continue with Google
+</a>
           <p className="text-sm text-center mt-6" style={{ color: '#555' }}>
             Don't have an account?{' '}
             <Link to="/auth/register" className="font-semibold transition-colors" style={{ color: '#f97316' }}>

@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
+const passport = require('./config/passport');
 const connectDB = require('./config/db');
 
 dotenv.config();
@@ -40,6 +41,7 @@ const authLimiter = rateLimit({
 app.use(globalLimiter);
 app.use(morgan('dev'));
 app.use(express.json({ limit: '10mb' }));
+app.use(passport.initialize());
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Routes

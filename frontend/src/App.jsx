@@ -12,6 +12,7 @@ import BookDetailPage from './pages/BookDetailPage';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import VerifyOtpPage from './pages/auth/VerifyOtpPage';
+import GoogleSuccessPage from './pages/auth/GoogleSuccessPage';
 import ReaderPage from './pages/ReaderPage';
 import LibraryPage from './pages/LibraryPage';
 import PublisherDashboardPage from './pages/publisher/PublisherDashboardPage';
@@ -51,6 +52,7 @@ export default function App() {
           <Route path="/auth/login" element={<GuestRoute><LoginPage /></GuestRoute>} />
           <Route path="/auth/register" element={<GuestRoute><RegisterPage /></GuestRoute>} />
           <Route path="/auth/verify" element={<VerifyOtpPage />} />
+          <Route path="/auth/google/success" element={<GoogleSuccessPage />} />
 
           {/* Reader */}
           <Route path="/read/:id" element={<ProtectedRoute><ReaderPage /></ProtectedRoute>} />
