@@ -194,6 +194,9 @@ export default function UploadBookPage() {
             {/* Cover image */}
             <div>
               <label className="label">Cover image *</label>
+<p className="text-xs mb-2" style={{ color: '#666' }}>
+  📐 Recommended ratio: <span style={{ color: '#f97316' }}>2:3</span> (e.g. 400×600px, 600×900px, 800×1200px)
+</p>
               <div
                 onClick={() => coverInputRef.current?.click()}
                 className={`relative border-2 border-dashed rounded-xl cursor-pointer transition-colors overflow-hidden ${
