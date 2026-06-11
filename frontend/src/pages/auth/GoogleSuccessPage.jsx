@@ -30,11 +30,8 @@ export default function GoogleSuccessPage() {
         });
 
         // Set auth state
-        useAuthStore.setState({
-          user: res.data.user,
-          accessToken,
-          refreshToken,
-        });
+        // Set auth state
+        setAuth(res.data.user, accessToken, refreshToken);
 
         // Redirect based on role
         if (res.data.user.role === 'publisher') {

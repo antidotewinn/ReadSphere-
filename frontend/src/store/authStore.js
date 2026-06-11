@@ -12,6 +12,7 @@ const useAuthStore = create(
       error: null,
 
       setTokens: (accessToken, refreshToken) => set({ accessToken, refreshToken }),
+      setAuth: (user, accessToken, refreshToken) => set({ user, accessToken, refreshToken }),
 
       login: async (email, password) => {
         set({ isLoading: true, error: null });
