@@ -22,6 +22,7 @@ passport.use(new GoogleStrategy({
       // Link Google account to existing user
       user.googleId = profile.id;
       user.avatar = profile.photos[0]?.value;
+      user.isVerified = true;
       await user.save({ validateBeforeSave: false });
       return done(null, user);
     }
