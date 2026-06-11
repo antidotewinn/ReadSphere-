@@ -59,9 +59,9 @@ export default function App() {
           <Route path="/library" element={<ProtectedRoute><LibraryPage /></ProtectedRoute>} />
 
           {/* Publisher */}
-          <Route path="/publisher/dashboard" element={<ProtectedRoute requiredRole="publisher"><PublisherDashboardPage /></ProtectedRoute>} />
-          <Route path="/publisher/upload" element={<ProtectedRoute requiredRole="publisher"><UploadBookPage /></ProtectedRoute>} />
-          <Route path="/publisher/books" element={<ProtectedRoute requiredRole="publisher"><ManageBooksPage /></ProtectedRoute>} />
+          <Route path="/publisher/dashboard" element={<ProtectedRoute><PublisherDashboardPage /></ProtectedRoute>} />
+          <Route path="/publisher/upload" element={<ProtectedRoute><UploadBookPage /></ProtectedRoute>} />
+          <Route path="/publisher/books" element={<ProtectedRoute><ManageBooksPage /></ProtectedRoute>} />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
