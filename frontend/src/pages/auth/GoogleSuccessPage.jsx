@@ -40,6 +40,7 @@ export default function GoogleSuccessPage() {
           navigate('/');
         }
       } catch (err) {
+        console.error('Google auth error:', err.response?.status, err.response?.data, err.message);
         navigate('/auth/login?error=google_failed');
       }
     };
