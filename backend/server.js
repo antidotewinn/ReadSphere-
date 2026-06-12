@@ -57,7 +57,7 @@ app.use('/api/ai', require('./routes/ai.routes'));
 app.get('/api/debug-users', async (req, res) => {
   const User = require('./models/User');
   const users = await User.find();
-  res.json({ count: users.length, emails: users.map(u => u.email) });
+  res.json({ count: users.length, users: users.map(u => ({ id: u._id, email: u.email, isVerified: u.isVerified, googleId: u.googleId })) });
 });
 app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'eBook Platform API is running', timestamp: new Date() });
