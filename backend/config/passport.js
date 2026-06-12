@@ -12,9 +12,12 @@ passport.use(new GoogleStrategy({
     let user = await User.findOne({ googleId: profile.id });
 
     if (user) {
+      if (!user.isVerified) {
+        user.isVerified = true;
+        await user.save({ validateBeforeSave: false });
+      }
       return done(null, user);
     }
-
     // Check if email already exists
     user = await User.findOne({ email: profile.emails[0].value });
 
