@@ -1,221 +1,180 @@
-<<<<<<< HEAD
-# PageTurn — eBook Publishing Platform
+# 📚 ReadSphere — AI-Powered eBook Platform
 
-A full-stack MERN eBook platform where publishers upload and monetize books, and readers purchase and read them securely in-app (no PDF downloads).
+> A full-stack AI-powered eBook platform where users can upload, read, summarize, and chat with any PDF — all in one place.
 
----
+![ReadSphere](https://img.shields.io/badge/ReadSphere-AI%20eBook%20Platform-orange)
+![MERN](https://img.shields.io/badge/Stack-MERN-green)
+![Groq AI](https://img.shields.io/badge/AI-Groq%20LLaMA%203.3-blue)
 
-## Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Frontend | React 18 + Vite, Tailwind CSS, Zustand, PDF.js |
-| Backend | Node.js, Express.js |
-| Database | MongoDB + Mongoose |
-| Storage | Cloudinary (PDFs + covers) |
-| Auth | JWT (access + refresh) + OTP email |
-| Payments | Razorpay |
+🔗 **Live Demo:** https://read-sphere-mu.vercel.app
+🔧 **Backend API:** https://readsphere-backend.onrender.com
 
 ---
 
-## Project Structure
+## 🚀 Features
 
-```
-ebook-platform/
-├── backend/
-│   ├── config/         # DB + Cloudinary config
-│   ├── controllers/    # Auth, Book, Publisher, Reader, Payment, Review
-│   ├── middleware/     # JWT auth middleware
-│   ├── models/         # User, Book, Order, Review
-│   ├── routes/         # All API routes
-│   ├── utils/          # JWT helpers, Email (OTP)
-│   ├── server.js
-│   └── .env.example
-└── frontend/
-    ├── src/
-    │   ├── components/ # Navbar, Toast, BookCard, Skeleton
-    │   ├── pages/      # All pages (Home, Browse, Reader, Library, etc.)
-    │   ├── store/      # Zustand auth store
-    │   └── utils/      # Axios instance with interceptors
-    ├── index.html
-    └── vite.config.js
-```
+- 📖 **Browse & Read eBooks** — Read any book directly in the browser for free
+- 🤖 **AI Summary** — Upload any PDF and get instant AI-generated summary
+- 💬 **Chat with PDF** — Ask any question about your PDF and get instant AI answers
+- 📤 **Upload Books** — Any user can upload eBooks with cover images and preview before publishing
+- 🔐 **Authentication** — JWT-based auth + Google OAuth login
+- 🔄 **Dual Roles** — Every user can read AND publish books on the same account
+- 📊 **Publisher Dashboard** — Track books, sales, and performance
+- 🌙 **Beautiful Dark UI** — Modern dark theme with orange gradient design
+- 📱 **Fully Responsive** — Works on all devices
 
 ---
 
-## Setup Guide
+## 🛠️ Tech Stack
+
+### Frontend
+- React.js + Vite
+- Tailwind CSS
+- PDF.js (for book reading)
+
+### Backend
+- Node.js + Express.js
+- MongoDB + Mongoose
+- JWT Authentication
+- Passport.js (Google OAuth)
+- Nodemailer (OTP emails)
+
+### AI
+- Groq API (LLaMA 3.3 70B)
+- pdf2json (PDF text extraction)
+
+### Storage
+- Cloudinary (Cover images + PDF files)
+
+### Deployment
+- Frontend: Vercel
+- Backend: Render
+- Database: MongoDB (Railway)
+
+---
+
+## ⚙️ Setup & Installation
 
 ### Prerequisites
 - Node.js v18+
-- MongoDB Atlas account (free tier works)
-- Cloudinary account (free tier works)
-- Razorpay account (test mode)
+- MongoDB (local or hosted)
+- Cloudinary account
+- Groq API key
+- Google OAuth Client ID & Secret
 - Gmail account (for OTP emails)
 
----
+### 1. Clone the repository
+```bash
+git clone https://github.com/antidotewinn/ReadSphere-.git
+cd ReadSphere-
+```
 
-### 1. Clone / open the project
-
-Open the `ebook-platform` folder in VS Code.
-
----
-
-### 2. Backend setup
-
+### 2. Setup Backend
 ```bash
 cd backend
-npm install
-cp .env.example .env
+npm install --legacy-peer-deps
 ```
 
-Edit `.env` and fill in all values:
-
+Create `.env` file in backend folder:
 ```env
-MONGODB_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/ebook-platform
-JWT_SECRET=<any long random string>
-JWT_REFRESH_SECRET=<another long random string>
-CLOUDINARY_CLOUD_NAME=<your cloudinary cloud name>
-CLOUDINARY_API_KEY=<your cloudinary api key>
-CLOUDINARY_API_SECRET=<your cloudinary api secret>
+PORT=5000
+NODE_ENV=development
+MONGODB_URI=mongodb://localhost:27017/ebook-platform
+JWT_SECRET=your_jwt_secret
+JWT_REFRESH_SECRET=your_refresh_secret
+JWT_EXPIRE=15m
+JWT_REFRESH_EXPIRE=7d
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
-EMAIL_USER=<your gmail>
-EMAIL_PASS=<your gmail app password>   # Use App Password, not your real password
-RAZORPAY_KEY_ID=<rzp test key>
-RAZORPAY_KEY_SECRET=<rzp test secret>
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_gmail_app_password
+GROQ_API_KEY=your_groq_api_key
 FRONTEND_URL=http://localhost:5173
+BACKEND_URL=http://localhost:5000
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
 ```
-
-> **Gmail App Password**: Go to Google Account → Security → 2-Step Verification → App Passwords → create one for "Mail".
 
 Start backend:
 ```bash
-npm run dev     # development (nodemon)
-npm start       # production
+node server.js
 ```
 
-Backend runs on **http://localhost:5000**
-
----
-
-### 3. Frontend setup
-
+### 3. Setup Frontend
 ```bash
 cd frontend
 npm install
+```
+
+Create `.env` file in frontend folder:
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+```bash
 npm run dev
 ```
 
-Frontend runs on **http://localhost:5173**
-
-> The Vite dev server proxies `/api/*` requests to `http://localhost:5000` automatically.
-
----
-
-### 4. Razorpay (payments)
-
-1. Sign up at razorpay.com and get test Key ID + Secret
-2. Add them to `.env`
-3. In `BookDetailPage.jsx`, the Razorpay checkout script is loaded via a `<script>` tag. For production, add it to `index.html` instead.
+### 4. Open in browser
+```
+http://localhost:5173
+```
 
 ---
 
-### 5. Cloudinary (file storage)
+## 🤖 How AI Works
 
-1. Create a free Cloudinary account
-2. Copy Cloud Name, API Key, API Secret from the dashboard
-3. Add to `.env`
-
-PDFs are stored as `raw` resource type. Signed URLs expire in 1 hour — readers cannot download the raw file.
-
----
-
-## API Reference
-
-### Auth
-| Method | Route | Description |
-|---|---|---|
-| POST | /api/auth/register | Register (sends OTP) |
-| POST | /api/auth/verify-otp | Verify email OTP |
-| POST | /api/auth/login | Login |
-| POST | /api/auth/resend-otp | Resend OTP |
-| POST | /api/auth/refresh-token | Refresh access token |
-| POST | /api/auth/logout | Logout |
-| GET | /api/auth/me | Get current user |
-
-### Books (public)
-| Method | Route | Description |
-|---|---|---|
-| GET | /api/books | Browse + search + filter |
-| GET | /api/books/featured | Featured books |
-| GET | /api/books/:id | Book details |
-| GET | /api/books/:id/read | Get signed PDF URL (auth) |
-
-### Publisher (publisher role required)
-| Method | Route | Description |
-|---|---|---|
-| GET | /api/publisher/dashboard | Stats + analytics |
-| GET | /api/publisher/books | My books |
-| POST | /api/publisher/books | Upload book (multipart) |
-| PUT | /api/publisher/books/:id | Update book |
-| PUT | /api/publisher/books/:id/publish | Publish draft |
-| DELETE | /api/publisher/books/:id | Delete book |
-
-### Reader (auth required)
-| Method | Route | Description |
-|---|---|---|
-| GET | /api/reader/library | Purchased books |
-| GET | /api/reader/orders | Purchase history |
-| GET | /api/reader/progress/:bookId | Reading progress |
-| PUT | /api/reader/progress/:bookId | Save progress |
-
-### Payments (auth required)
-| Method | Route | Description |
-|---|---|---|
-| POST | /api/payment/create-order | Create Razorpay order |
-| POST | /api/payment/verify | Verify payment signature |
-
-### Reviews
-| Method | Route | Description |
-|---|---|---|
-| GET | /api/reviews/:bookId | Get reviews |
-| POST | /api/reviews/:bookId | Post review (must own book) |
-| DELETE | /api/reviews/:reviewId | Delete own review |
+1. User uploads a PDF
+2. Backend extracts text using `pdf2json`
+3. Text is sent to **Groq API** (LLaMA 3.3 70B model)
+4. AI generates summary or answers questions
+5. Response is displayed instantly
 
 ---
 
-## Key Security Features
+## 📸 Pages
 
-- **JWT access tokens** expire in 15 minutes; refresh tokens in 7 days
-- **Signed Cloudinary URLs** expire in 1 hour — PDFs cannot be directly accessed
-- **PDF streamed page-by-page** via PDF.js — no full file download
-- **Right-click disabled** on reader canvas
-- **Backend authorization** checked before serving any PDF URL
-- **Rate limiting** on all routes (200/15min global, 10/15min on auth)
-- **Helmet** security headers
-- **Input validation** with express-validator
-
----
-
-## Deployment
-
-### Backend (Railway / Render)
-1. Push backend folder to GitHub
-2. Create new service, connect repo
-3. Set all environment variables
-4. Set start command: `node server.js`
-
-### Frontend (Vercel)
-1. Push frontend folder to GitHub
-2. Import to Vercel
-3. Set `VITE_API_URL` if needed, or update `vite.config.js` proxy for production
-4. Build command: `npm run build`, output: `dist`
+- **Home** — Landing page with AI features showcase
+- **Browse** — Browse all available books
+- **AI Summary** — Upload PDF → Get AI summary
+- **Chat PDF** — Upload PDF → Ask questions
+- **Library** — View all books
+- **Login/Register** — Email + Google OAuth authentication
+- **Publisher Dashboard** — Manage books and track performance
+- **Reader** — In-browser PDF reader with bookmarks and progress tracking
 
 ---
 
-## License
-MIT
-=======
-# ReadSphere-
-AI-powered eBook platform built with MERN stack + Groq AI. Features include PDF reading, AI summary, chat with PDF, book upload with preview, OTP email verification, and publisher dashboard.
->>>>>>> 8fcebb40845d5e72a5d26210514eedfc5c59ef49
+## 👤 User Roles
+
+Every registered user can:
+- **Read** — Browse, read, and use AI features
+- **Publish** — Upload books, manage library, view dashboard
+
+No separate accounts needed — one account, all features!
+
+---
+
+## 🚀 Deployment
+
+- Frontend: [Vercel](https://vercel.com)
+- Backend: [Render](https://render.com)
+- Database: [MongoDB on Railway](https://railway.app)
+
+---
+
+## 📄 License
+
+MIT License — feel free to use this project for learning and portfolio purposes.
+
+---
+
+## 👩‍💻 Built By
+
+**Vinisha Srivastava** — BCA Student | Full Stack Developer
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://linkedin.com)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-black)](https://github.com/antidotewinn)
